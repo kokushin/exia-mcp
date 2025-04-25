@@ -1,0 +1,43 @@
+{
+  "name": "exia-mcp",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "exia-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokushin/exia-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "exia",
+    "yukkuri"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kokushin/exia-mcp/issues"
+  },
+  "homepage": "https://github.com/kokushin/exia-mcp#readme",
+  "description": "MCP server for generating Yukkuri explanation scenarios for Exia",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "@types/node": "^22.15.2",
+    "dotenv": "^16.5.0",
+    "openai": "^4.96.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
