@@ -38,7 +38,7 @@ export async function generateYukkuriScenario(params: ScenarioGenerationParams):
 「${topic}」について、ゆっくり魔理沙とゆっくり霊夢が解説するシナリオを作成してください。
 
 以下の条件を満たすシナリオを作成してください：
-1. ゆっくり魔理沙とゆっくり霊夢の2人が会話形式で解説する
+1. ゆっくり魔理沙とゆっくり霊夢の2人が会話形式で解説する。会話は必ずしも交互になる必要はない
 2. ゆっくり魔理沙は「〜だぜ」「〜なのぜ」などの語尾を使い、少し乱暴だが知識豊富なキャラクター
 3. ゆっくり霊夢は「〜よ」「〜ね」などの語尾を使い、穏やかだが時々ツッコミを入れるキャラクター
 4. 「${topic}」について分かりやすく、かつ詳細に解説する
@@ -55,7 +55,7 @@ export async function generateYukkuriScenario(params: ScenarioGenerationParams):
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "o4-mini-2025-04-16",
       messages: [
         { role: "system", content: "あなたはシナリオライターです。" },
         { role: "user", content: prompt },
