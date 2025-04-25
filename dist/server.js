@@ -107,54 +107,72 @@ export async function createServer() {
             };
         }
     });
-    // exia起動ツール
-    server.tool("playExia", {}, async () => {
-        try {
-            // exiaの起動
-            const url = await exiaManager.start();
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `exiaを起動しました。ブラウザで ${url} にアクセスしてください。`,
-                    },
-                ],
-            };
-        }
-        catch (error) {
-            console.error("Error starting exia:", error);
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `exiaの起動に失敗しました: ${error}`,
-                    },
-                ],
-                isError: true,
-            };
-        }
-    });
+    // 注意: playExiaツールは削除し、exiaVoiceroidExplainツール内でのみexiaを起動するようにしました
     // オールインワンツール（シナリオ生成からexia起動まで一括実行）
     server.tool("exiaVoiceroidExplain", { topic: z.string() }, async ({ topic }) => {
         try {
-            let url = "";
+            // 各ステップの結果を保存する変数
+            let rawScenario;
+            let scenario;
+            let url;
+            let setupNeeded = false;
             // 1. シナリオの生成
             console.error(`Generating scenario for topic: ${topic}`);
-            const rawScenario = await generateVoiceroidScenario({ topic, minLength: 2000 });
+            try {
+                rawScenario = await generateVoiceroidScenario({ topic, minLength: 2000 });
+                console.error("Scenario generation completed successfully");
+            }
+            catch (error) {
+                console.error("Error generating scenario:", error);
+                throw new Error(`シナリオの生成に失敗しました: ${error}`);
+            }
             // 2. シナリオのパースとexia形式への変換
             console.error("Parsing scenario to exia format");
-            const scenario = parseVoiceroidScenario(rawScenario);
+            try {
+                scenario = parseVoiceroidScenario(rawScenario);
+                console.error("Scenario parsing completed successfully");
+            }
+            catch (error) {
+                console.error("Error parsing scenario:", error);
+                throw new Error(`シナリオのパースに失敗しました: ${error}`);
+            }
             // 3. exiaのセットアップ（必要な場合）
-            if (!(await exiaManager.checkSetup())) {
-                console.error("Setting up exia");
-                await exiaManager.setup();
+            try {
+                setupNeeded = !(await exiaManager.checkSetup());
+                if (setupNeeded) {
+                    console.error("Setting up exia");
+                    await exiaManager.setup();
+                    console.error("Exia setup completed successfully");
+                }
+                else {
+                    console.error("Exia is already set up");
+                }
+            }
+            catch (error) {
+                console.error("Error checking or setting up exia:", error);
+                throw new Error(`exiaのセットアップに失敗しました: ${error}`);
             }
             // 4. シナリオの保存
             console.error("Saving scenario");
-            await exiaManager.saveScenario(scenario);
+            try {
+                await exiaManager.saveScenario(scenario);
+                console.error("Scenario saved successfully");
+            }
+            catch (error) {
+                console.error("Error saving scenario:", error);
+                throw new Error(`シナリオの保存に失敗しました: ${error}`);
+            }
             // 5. exiaの起動（必ず最後に実行）
-            console.error("Starting exia");
-            url = await exiaManager.start();
+            console.error("Starting exia (final step)");
+            try {
+                url = await exiaManager.start();
+                console.error(`Exia started successfully at ${url}`);
+            }
+            catch (error) {
+                console.error("Error starting exia:", error);
+                throw new Error(`exiaの起動に失敗しました: ${error}`);
+            }
+            // 全ステップが成功した場合の応答
             return {
                 content: [
                     {

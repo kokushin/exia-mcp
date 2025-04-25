@@ -65,8 +65,7 @@ npm run build
 - `generateScenario`: お題からシナリオを生成
 - `setupExia`: exia をダウンロードしてセットアップ
 - `saveScenario`: 生成したシナリオを保存
-- `playExia`: exia を起動
-- `exiaVoiceroidExplain`: 上記すべての処理を一括実行（推奨）
+- `exiaVoiceroidExplain`: シナリオ生成から exia 起動までを一括実行（推奨）
 
 ## 注意事項
 

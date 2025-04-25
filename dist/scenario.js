@@ -9,14 +9,14 @@ export function parseVoiceroidScenario(rawScenario) {
         {
             index: 0,
             name: "琴葉 茜",
-            imageFile: "chara_01.webp",
+            imageFile: "chara_01.png",
             isShow: true,
             speakerId: 3,
         },
         {
             index: 1,
             name: "琴葉 葵",
-            imageFile: "chara_02.webp",
+            imageFile: "chara_02.png",
             isShow: true,
             speakerId: 2,
         },

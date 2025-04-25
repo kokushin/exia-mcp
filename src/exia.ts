@@ -103,27 +103,61 @@ export class ExiaManager {
         this.stop();
       }
 
-      // 開発サーバを起動
-      this.exiaProcess = exec("npm run dev", { cwd: this.exiaPath });
+      console.error("Starting exia development server...");
 
-      // 標準出力をログに出力
-      this.exiaProcess.stdout?.on("data", (data) => {
-        console.error(`exia stdout: ${data}`);
+      // サーバーが起動するのを待つためのPromise
+      return new Promise((resolve, reject) => {
+        // 開発サーバを起動
+        this.exiaProcess = exec("npm run dev", { cwd: this.exiaPath });
+
+        // タイムアウト処理（30秒後にタイムアウト）
+        const timeout = setTimeout(() => {
+          reject(new Error("Timeout: exia server startup took too long"));
+        }, 30000);
+
+        // 標準出力をログに出力
+        this.exiaProcess.stdout?.on("data", (data) => {
+          console.error(`exia stdout: ${data}`);
+
+          // サーバー起動完了のメッセージを検出
+          if (data.toString().includes("ready started server") || data.toString().includes("localhost:3000")) {
+            clearTimeout(timeout);
+            console.error("exia server started successfully");
+            resolve("http://localhost:3000");
+          }
+        });
+
+        // 標準エラー出力をログに出力
+        this.exiaProcess.stderr?.on("data", (data) => {
+          console.error(`exia stderr: ${data}`);
+
+          // エラー出力からもサーバー起動完了のメッセージを検出
+          if (data.toString().includes("ready started server") || data.toString().includes("localhost:3000")) {
+            clearTimeout(timeout);
+            console.error("exia server started successfully");
+            resolve("http://localhost:3000");
+          }
+        });
+
+        // プロセスが終了したときのハンドリング
+        this.exiaProcess.on("close", (code) => {
+          clearTimeout(timeout);
+          console.error(`exia process exited with code ${code}`);
+          this.exiaProcess = null;
+
+          // 正常終了でなければエラーとして扱う
+          if (code !== 0) {
+            reject(new Error(`exia process exited with code ${code}`));
+          }
+        });
+
+        // エラーハンドリング
+        this.exiaProcess.on("error", (err) => {
+          clearTimeout(timeout);
+          console.error("Error in exia process:", err);
+          reject(err);
+        });
       });
-
-      // 標準エラー出力をログに出力
-      this.exiaProcess.stderr?.on("data", (data) => {
-        console.error(`exia stderr: ${data}`);
-      });
-
-      // プロセスが終了したときのハンドリング
-      this.exiaProcess.on("close", (code) => {
-        console.error(`exia process exited with code ${code}`);
-        this.exiaProcess = null;
-      });
-
-      // ローカルサーバのURLを返す
-      return "http://localhost:3000";
     } catch (error) {
       console.error("Error starting exia:", error);
       throw new Error("Failed to start exia");
