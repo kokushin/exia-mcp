@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { generateYukkuriScenario } from "./openai.js";
-import { parseYukkuriScenario } from "./scenario.js";
+import { generateVoiceroidScenario } from "./openai.js";
+import { parseVoiceroidScenario } from "./scenario.js";
 import { ExiaManager } from "./exia.js";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 export async function createServer() {
   // MCPサーバの作成
   const server = new McpServer({
-    name: "Exia Yukkuri Scenario Generator",
+    name: "Exia Voiceroid Scenario Generator",
     version: "1.0.0",
   });
 
@@ -28,16 +28,16 @@ export async function createServer() {
   server.tool("generateScenario", { topic: z.string() }, async ({ topic }) => {
     try {
       // シナリオの生成
-      const rawScenario = await generateYukkuriScenario({ topic, minLength: 2000 });
+      const rawScenario = await generateVoiceroidScenario({ topic, minLength: 2000 });
 
       // シナリオのパースとexia形式への変換
-      const scenario = parseYukkuriScenario(rawScenario);
+      const scenario = parseVoiceroidScenario(rawScenario);
 
       return {
         content: [
           {
             type: "text",
-            text: `「${topic}」についてのゆっくり解説シナリオを生成しました。`,
+            text: `「${topic}」についての琴葉姉妹解説シナリオを生成しました。`,
           },
         ],
       };
@@ -87,10 +87,10 @@ export async function createServer() {
   server.tool("saveScenario", { topic: z.string() }, async ({ topic }) => {
     try {
       // シナリオの生成
-      const rawScenario = await generateYukkuriScenario({ topic, minLength: 2000 });
+      const rawScenario = await generateVoiceroidScenario({ topic, minLength: 2000 });
 
       // シナリオのパースとexia形式への変換
-      const scenario = parseYukkuriScenario(rawScenario);
+      const scenario = parseVoiceroidScenario(rawScenario);
 
       // シナリオの保存
       await exiaManager.saveScenario(scenario);
@@ -146,15 +146,17 @@ export async function createServer() {
   });
 
   // オールインワンツール（シナリオ生成からexia起動まで一括実行）
-  server.tool("exiaYukkuriExplain", { topic: z.string() }, async ({ topic }) => {
+  server.tool("exiaVoiceroidExplain", { topic: z.string() }, async ({ topic }) => {
     try {
+      let url = "";
+
       // 1. シナリオの生成
       console.error(`Generating scenario for topic: ${topic}`);
-      const rawScenario = await generateYukkuriScenario({ topic, minLength: 2000 });
+      const rawScenario = await generateVoiceroidScenario({ topic, minLength: 2000 });
 
       // 2. シナリオのパースとexia形式への変換
       console.error("Parsing scenario to exia format");
-      const scenario = parseYukkuriScenario(rawScenario);
+      const scenario = parseVoiceroidScenario(rawScenario);
 
       // 3. exiaのセットアップ（必要な場合）
       if (!(await exiaManager.checkSetup())) {
@@ -166,20 +168,20 @@ export async function createServer() {
       console.error("Saving scenario");
       await exiaManager.saveScenario(scenario);
 
-      // 5. exiaの起動
+      // 5. exiaの起動（必ず最後に実行）
       console.error("Starting exia");
-      const url = await exiaManager.start();
+      url = await exiaManager.start();
 
       return {
         content: [
           {
             type: "text",
-            text: `「${topic}」についてのゆっくり解説シナリオを生成し、exiaを起動しました。ブラウザで ${url} にアクセスしてください。`,
+            text: `「${topic}」についての琴葉姉妹解説シナリオを生成し、exiaを起動しました。ブラウザで ${url} にアクセスしてください。`,
           },
         ],
       };
     } catch (error) {
-      console.error("Error in exiaYukkuriExplain:", error);
+      console.error("Error in exiaVoiceroidExplain:", error);
       return {
         content: [
           {

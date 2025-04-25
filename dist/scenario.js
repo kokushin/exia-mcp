@@ -1,22 +1,22 @@
 /**
- * ゆっくり解説シナリオをパースしてexia形式に変換する関数
+ * 琴葉姉妹解説シナリオをパースしてexia形式に変換する関数
  * @param rawScenario 生成されたシナリオテキスト
  * @returns exia形式のシナリオオブジェクト
  */
-export function parseYukkuriScenario(rawScenario) {
+export function parseVoiceroidScenario(rawScenario) {
     const lines = [];
     const characters = [
         {
             index: 0,
-            name: "ゆっくり魔理沙",
-            imageFile: "chara_01.png",
+            name: "琴葉 茜",
+            imageFile: "chara_01.webp",
             isShow: true,
             speakerId: 3,
         },
         {
             index: 1,
-            name: "ゆっくり霊夢",
-            imageFile: "chara_02.png",
+            name: "琴葉 葵",
+            imageFile: "chara_02.webp",
             isShow: true,
             speakerId: 2,
         },
@@ -34,11 +34,11 @@ export function parseYukkuriScenario(rawScenario) {
             return;
         }
         // キャラクターのセリフの処理
-        const match = line.match(/^(ゆっくり魔理沙|ゆっくり霊夢)[:：](.*)/);
+        const match = line.match(/^(琴葉 茜|茜|琴葉 葵|葵)[:：](.*)/);
         if (match) {
             const characterName = match[1];
             const text = match[2].trim();
-            const characterIndex = characterName === "ゆっくり魔理沙" ? 0 : 1;
+            const characterIndex = characterName === "琴葉 茜" || characterName === "茜" ? 0 : 1;
             lines.push({
                 character: {
                     index: characterIndex,
@@ -60,13 +60,13 @@ export function parseYukkuriScenario(rawScenario) {
     if (lines.length > 0 && lines[0].type === 0) {
         lines.unshift({
             type: 0,
-            text: "ゆっくり解説へようこそ！今回のテーマについて、ゆっくり魔理沙とゆっくり霊夢が解説します。",
+            text: "琴葉姉妹の解説へようこそ！今回のテーマについて、琴葉茜と琴葉葵が解説します。",
         });
     }
     else {
         lines.unshift({
             type: 0,
-            text: "ゆっくり解説へようこそ！今回のテーマについて、ゆっくり魔理沙とゆっくり霊夢が解説します。",
+            text: "琴葉姉妹の解説へようこそ！今回のテーマについて、琴葉茜と琴葉葵が解説します。",
         });
     }
     return {

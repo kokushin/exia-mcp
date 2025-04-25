@@ -19,7 +19,7 @@
   "keywords": [
     "mcp",
     "exia",
-    "yukkuri"
+    "voiceroid"
   ],
   "author": "",
   "license": "ISC",
@@ -27,7 +27,7 @@
     "url": "https://github.com/kokushin/exia-mcp/issues"
   },
   "homepage": "https://github.com/kokushin/exia-mcp#readme",
-  "description": "MCP server for generating Yukkuri explanation scenarios for Exia",
+  "description": "MCP server for generating Voiceroid explanation scenarios for Exia",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.2",
     "@types/node": "^22.15.2",

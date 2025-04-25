@@ -1,10 +1,10 @@
-# Exia Yukkuri Scenario Generator MCP Server
+# Exia Voiceroid Scenario Generator MCP Server
 
-exia というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。「ゆっくり解説」形式のシナリオを生成し、exia で表示します。
+exia というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。「琴葉姉妹解説」形式のシナリオを生成し、exia で表示します。
 
 ## 機能
 
-- 指定されたお題について「ゆっくり解説」形式のシナリオを生成
+- 指定されたお題について「琴葉姉妹解説」形式のシナリオを生成
 - 生成したシナリオを exia 用の JSON 形式に変換
 - exia を GitHub からダウンロードしてセットアップ
 - 生成したシナリオを exia で表示
@@ -48,7 +48,7 @@ npm run build
 
 2. 設定画面を開き、MCP サーバを追加
 
-   - 名前: `Exia Yukkuri Scenario Generator`
+   - 名前: `Exia Voiceroid Scenario Generator`
    - コマンド: `npx`
    - 引数: `-y path/to/exia-mcp --openai-api-key=YOUR_API_KEY --stdio`
    - 作業ディレクトリ: `path/to/exia-mcp`（実際のパスに置き換えてください）
@@ -66,7 +66,7 @@ npm run build
 - `setupExia`: exia をダウンロードしてセットアップ
 - `saveScenario`: 生成したシナリオを保存
 - `playExia`: exia を起動
-- `exiaYukkuriExplain`: 上記すべての処理を一括実行（推奨）
+- `exiaVoiceroidExplain`: 上記すべての処理を一括実行（推奨）
 
 ## 注意事項
 
