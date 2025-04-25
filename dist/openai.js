@@ -27,7 +27,7 @@ const openai = new OpenAI({
 export async function generateYukkuriScenario(params) {
     const { topic, minLength = 2000 } = params;
     const prompt = `
-あなたは「ゆっくり解説」形式のノベルゲームのシナリオを作成するライターです。
+あなたは「ゆっくり解説」形式のシナリオを作成するライターです。
 「${topic}」について、ゆっくり魔理沙とゆっくり霊夢が解説するシナリオを作成してください。
 
 以下の条件を満たすシナリオを作成してください：
@@ -43,13 +43,13 @@ export async function generateYukkuriScenario(params) {
 
 出力形式：
 シナリオ全体を出力してください。キャラクターのセリフは「キャラクター名: セリフ内容」の形式で記述してください。
-ナレーションや場面転換は「」の形式で記述してください。
+ナレーションや場面転換は「（ナレーション内容）」の形式で記述してください。
 `;
     try {
         const response = await openai.chat.completions.create({
             model: "o4-mini-2025-04-16",
             messages: [
-                { role: "system", content: "あなたはノベルゲームのシナリオライターです。" },
+                { role: "system", content: "あなたはシナリオライターです。" },
                 { role: "user", content: prompt },
             ],
         });
