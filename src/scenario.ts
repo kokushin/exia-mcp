@@ -11,14 +11,14 @@ export function parseYukkuriScenario(rawScenario: string): Scenario {
     {
       index: 0,
       name: "ゆっくり魔理沙",
-      imageFile: "chara_01.webp",
+      imageFile: "chara_01.png",
       isShow: true,
       speakerId: 3,
     },
     {
       index: 1,
       name: "ゆっくり霊夢",
-      imageFile: "chara_02.webp",
+      imageFile: "chara_02.png",
       isShow: true,
       speakerId: 2,
     },
