@@ -5,7 +5,6 @@
 
 <img width="800" alt="" src="https://github.com/user-attachments/assets/f02cc41a-6456-44d3-bb22-190cb899515d" />
 
-
 ## 機能
 
 - 指定されたお題について「琴葉姉妹解説」形式のシナリオを生成
@@ -68,7 +67,7 @@ npm run build
 3. Claude Desktop で以下のように使用
    - 「exia で量子コンピュータについて解説して」と入力
    - MCP サーバが起動し、シナリオを生成して exia を起動
-   - ブラウザで exia にアクセスしてシナリオをプレイ
+   - exia アプリケーション（Electron）が別ウィンドウで起動し、シナリオをプレイ
 
 ## 利用可能なツール
 
