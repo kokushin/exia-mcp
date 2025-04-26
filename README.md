@@ -1,6 +1,10 @@
 # exia-scenario-generator MCP Server
 
-exia というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。「琴葉姉妹解説」形式のシナリオを生成し、exia で表示します。
+[exia](https://github.com/kokushin/exia) というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。  
+「琴葉姉妹解説」形式のシナリオを生成し、exia で表示します。
+
+<img width="1352" alt="スクリーンショット 2025-04-26 4 53 53" src="https://github.com/user-attachments/assets/f02cc41a-6456-44d3-bb22-190cb899515d" />
+
 
 ## 機能
 
