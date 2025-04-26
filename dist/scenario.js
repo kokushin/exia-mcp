@@ -57,18 +57,10 @@ export function parseVoiceroidScenario(rawScenario) {
         }
     });
     // 最初のナレーションで挨拶を入れる
-    if (lines.length > 0 && lines[0].type === 0) {
-        lines.unshift({
-            type: 0,
-            text: "琴葉姉妹の解説へようこそ！今回のテーマについて、琴葉茜と琴葉葵が解説します。",
-        });
-    }
-    else {
-        lines.unshift({
-            type: 0,
-            text: "琴葉姉妹の解説へようこそ！今回のテーマについて、琴葉茜と琴葉葵が解説します。",
-        });
-    }
+    lines.unshift({
+        type: 0,
+        text: "琴葉姉妹の解説へようこそ！今回のテーマについて、琴葉茜と琴葉葵が解説します。",
+    });
     return {
         id: "S_000",
         backgroundFile: "bg_01.webp",
