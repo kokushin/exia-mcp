@@ -53,8 +53,8 @@ npm run build
       "command": "npx",
       "args": [
         "-y",
-        "/path/to/exia-mcp", //（実際のパスに置き換えてください）
-        "--openai-api-key=YOUR_API_KEY",
+        "/path/to/exia-mcp", //（clone した exia-mcp のパスに置き換えてください）
+        "--openai-api-key=YOUR_API_KEY", //（OpenAI API キーに置き換えてください）
         "--stdio"
       ]
     }
@@ -62,8 +62,8 @@ npm run build
 }
 ```
 
-※ `YOUR_API_KEY` は実際の OpenAI API キーに置き換えてください
-※ `npx` が実行できない場合は絶対パスで指定してください `例: /path/to/.volta/bin/npx`
+- ※ `YOUR_API_KEY` は実際の OpenAI API キーに置き換えてください
+- ※ `npx` が実行できない場合は絶対パスで指定してください `例: /path/to/.volta/bin/npx`
 
 3. Claude Desktop で以下のように使用
    - 「exia で量子コンピュータについて解説して」と入力
