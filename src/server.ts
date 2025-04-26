@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 export async function createServer() {
   // MCPサーバの作成
   const server = new McpServer({
-    name: "Exia Voiceroid Scenario Generator",
+    name: "exia-scenario-generator",
     version: "1.0.0",
   });
 

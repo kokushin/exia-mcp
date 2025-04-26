@@ -17,7 +17,7 @@ async function main() {
     // サーバとトランスポートの接続
     await server.connect(transport);
 
-    console.error("Exia Voiceroid Scenario Generator MCP server is running...");
+    console.error("exia-scenario-generator MCP server is running...");
   } catch (error) {
     console.error("Error starting MCP server:", error);
     process.exit(1);

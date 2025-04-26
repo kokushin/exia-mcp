@@ -1,4 +1,4 @@
-# Exia Voiceroid Scenario Generator MCP Server
+# exia-scenario-generator MCP Server
 
 exia というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。「琴葉姉妹解説」形式のシナリオを生成し、exia で表示します。
 
@@ -20,7 +20,7 @@ exia というノベルゲームエンジン向けのシナリオファイルを
 1. リポジトリをクローンまたはダウンロード
 
 ```bash
-git clone https://github.com/yourusername/exia-mcp.git
+git clone https://github.com/kokushin/exia-mcp.git
 cd exia-mcp
 ```
 
@@ -30,13 +30,7 @@ cd exia-mcp
 npm install
 ```
 
-3. `.env`ファイルを編集して OpenAI API キーを設定
-
-```
-OPENAI_API_KEY=your_api_key_here
-```
-
-4. TypeScript のコンパイル
+3. TypeScript のコンパイル (変更を加えたら実行してください)
 
 ```bash
 npm run build
@@ -48,12 +42,24 @@ npm run build
 
 2. 設定画面を開き、MCP サーバを追加
 
-   - 名前: `Exia Voiceroid Scenario Generator`
-   - コマンド: `npx`
-   - 引数: `-y path/to/exia-mcp --openai-api-key=YOUR_API_KEY --stdio`
-   - 作業ディレクトリ: `path/to/exia-mcp`（実際のパスに置き換えてください）
+```json
+{
+  "mcpServers": {
+    "exia-scenario-generator": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "/path/to/exia-mcp", //（実際のパスに置き換えてください）
+        "--openai-api-key=YOUR_API_KEY",
+        "--stdio"
+      ]
+    }
+  }
+}
+```
 
-   ※ `YOUR_API_KEY` は実際の OpenAI API キーに置き換えてください
+※ `YOUR_API_KEY` は実際の OpenAI API キーに置き換えてください
+※ `npx` が実行できない場合は絶対パスで指定してください `例: /path/to/.volta/bin/npx`
 
 3. Claude Desktop で以下のように使用
    - 「exia で量子コンピュータについて解説して」と入力
@@ -71,6 +77,7 @@ npm run build
 
 - 初回実行時は exia のダウンロードとセットアップに時間がかかります
 - キャラクター画像は自前で用意して手動で差し替える必要があります
+  - exia のドキュメントは[こちら](https://github.com/kokushin/exia?tab=readme-ov-file#%E7%94%BB%E5%83%8F%E3%82%84%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%97%E3%81%9F%E3%81%84%E5%A0%B4%E5%90%88)
 - OpenAI API の利用には料金がかかる場合があります
 
 ## ライセンス
