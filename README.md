@@ -1,5 +1,7 @@
 # exia-scenario-generator MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@kokushin/exia-mcp)](https://smithery.ai/server/@kokushin/exia-mcp)
+
 [exia](https://github.com/kokushin/exia) というノベルゲームエンジン向けのシナリオファイルを作成する MCP サーバです。  
 「琴葉姉妹解説」形式のシナリオを生成し、exia で表示します。
 
@@ -20,6 +22,15 @@
 
 ## セットアップ
 
+### Smithery を使用したインストール
+
+この MCP サーバを [Smithery](https://smithery.ai/server/@kokushin/exia-mcp) を使って自動的に Claude Desktop 用にインストールできます。
+
+```bash
+npx -y @smithery/cli install @kokushin/exia-mcp --client claude
+```
+
+### 手動インストール
 1. リポジトリをクローンまたはダウンロード
 
 ```bash
